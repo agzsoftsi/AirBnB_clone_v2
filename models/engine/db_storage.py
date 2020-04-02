@@ -21,7 +21,8 @@ class DBStorage:
     __session = None
     __tables = [
         State,
-        City
+        City,
+        User
     ]
 
     def __init__(self):
