@@ -22,7 +22,8 @@ class DBStorage:
     __tables = [
         State,
         City,
-        User
+        User,
+        Place
     ]
 
     def __init__(self):
