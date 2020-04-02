@@ -23,7 +23,8 @@ class DBStorage:
         State,
         City,
         User,
-        Place
+        Place,
+        Review
     ]
 
     def __init__(self):
