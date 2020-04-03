@@ -11,7 +11,6 @@ from models.place import Place
 from models.review import Review
 from os import environ
 
-storage = FileStorage()
 storage_value = environ.get("HBNB_TYPE_STORAGE")
 if storage_value == "db":
     storage = DBStorage()
