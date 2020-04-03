@@ -2,9 +2,8 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from models.review import Review
-from models.amenity import Amenity
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 
 place_amenity = Table(
     'place_amenity',
@@ -84,5 +83,5 @@ class Place(BaseModel, Base):
     def amenities(self, obj):
         """Set the id of the amenities
         """
-        if str(type(obj).__name__) == "Amenity":
+        if type(obj).__name__ == "Amenity":
             self.amenity_ids.append(obj.id)
