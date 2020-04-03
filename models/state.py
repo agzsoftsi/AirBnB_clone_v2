@@ -20,7 +20,7 @@ class State(BaseModel, Base):
         """ Returns the list of City instances with
         state_id == current State.id """
         list_cities = []
-        state_cities = models.engine.all(City)
+        state_cities = models.storage.all(City)
         for st_city in state_cities.values():
             if st_city.state_id == self.id:
                 list_cities.append(st_city)
