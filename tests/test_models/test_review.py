@@ -1,27 +1,25 @@
 #!/usr/bin/python3
-"""test for review"""
+"""test for state"""
 import unittest
 import os
-from models.review import Review
+from models.state import State
 from models.base_model import BaseModel
 import pep8
 
 
-class TestReview(unittest.TestCase):
-    """this will test the place class"""
+class TestState(unittest.TestCase):
+    """this will test the State class"""
 
     @classmethod
     def setUpClass(cls):
         """set up for test"""
-        cls.rev = Review()
-        cls.rev.place_id = "4321-dcba"
-        cls.rev.user_id = "123-bca"
-        cls.rev.text = "The srongest in the Galaxy"
+        cls.state = State()
+        cls.state.name = "CA"
 
     @classmethod
     def teardown(cls):
         """at the end of the test this will tear it down"""
-        del cls.rev
+        del cls.state
 
     def tearDown(self):
         """teardown"""
@@ -33,40 +31,37 @@ class TestReview(unittest.TestCase):
     def test_pep8_Review(self):
         """Tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/review.py'])
+        p = style.check_files(['models/state.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_Review(self):
+    def test_checking_for_docstring_State(self):
         """checking for docstrings"""
-        self.assertIsNotNone(Review.__doc__)
+        self.assertIsNotNone(State.__doc__)
 
-    def test_attributes_review(self):
-        """chekcing if review have attributes"""
-        self.assertTrue('id' in self.rev.__dict__)
-        self.assertTrue('created_at' in self.rev.__dict__)
-        self.assertTrue('updated_at' in self.rev.__dict__)
-        self.assertTrue('place_id' in self.rev.__dict__)
-        self.assertTrue('text' in self.rev.__dict__)
-        self.assertTrue('user_id' in self.rev.__dict__)
+    def test_attributes_State(self):
+        """chekcing if State have attributes"""
+        self.assertTrue('id' in self.state.__dict__)
+        self.assertTrue('created_at' in self.state.__dict__)
+        self.assertTrue('updated_at' in self.state.__dict__)
+        self.assertTrue('name' in self.state.__dict__)
 
-    def test_is_subclass_Review(self):
-        """test if review is subclass of BaseModel"""
-        self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
+    def test_is_subclass_State(self):
+        """test if State is subclass of BaseModel"""
+        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
 
-    def test_attribute_types_Review(self):
-        """test attribute type for Review"""
-        self.assertEqual(type(self.rev.text), str)
-        self.assertEqual(type(self.rev.place_id), str)
-        self.assertEqual(type(self.rev.user_id), str)
+    def test_attribute_types_State(self):
+        """test attribute type for State"""
+        self.assertEqual(type(self.state.name), str)
 
-    def test_save_Review(self):
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "No apply for db")
+    def test_save_State(self):
         """test if the save works"""
-        self.rev.save()
-        self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
+        self.state.save()
+        self.assertNotEqual(self.state.created_at, self.state.updated_at)
 
-    def test_to_dict_Review(self):
+    def test_to_dict_State(self):
         """test if dictionary works"""
-        self.assertEqual('to_dict' in dir(self.rev), True)
+        self.assertEqual('to_dict' in dir(self.state), True)
 
 
 if __name__ == "__main__":
