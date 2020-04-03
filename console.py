@@ -41,21 +41,45 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not line:
                 raise SyntaxError()
+
             my_list = line.split(" ")
-            obj = eval("{}()".format(my_list[0]))
-            parameters = my_list[1:]
-            for elem in parameters:
-                if "=" in elem:
-                    parameter_split = elem.split("=")
-                    if parameter_split[1][0] == "\"":
-                        parameter_split[1] = parameter_split[1][1:-1]
-                        parameter_split[1] = parameter_split[1].replace(
-                            '_', ' ').replace('"', '\\"')
-                    elif parameter_split[1].isdigit():
-                        parameter_split[1] = int(parameter_split[1])
+
+            listakwargs = []
+
+            for i in my_list[1:]:
+                try:
+                    # check params. Param syntax: <key name>=<value>
+                    listasplit = i.split("=")
+                    x = i
+
+                    # if param doesnt fit is ignored(skiped)
+                    if len(listasplit) == 2:
+
+                        if(listasplit[1]) == '':
+                            raise ValueError()
+
+                        value = listasplit[1]
+
+                        # validate value string syntax
+                        if value[0] == '"' and value[len(value) - 1] == '"':
+                            # replace "_" for space to store
+                            if '_' in value:
+                                listasplit[1] = str(value.replace('_', ' '))
+                                x = "=".join(listasplit)
+
+                        elif value[0] == '"' and value[len(value) - 1] != '"':
+                            raise ValueError()
+                        elif value[0] != '"' and value[len(value) - 1] == '"':
+                            raise ValueError()
+
+                        listakwargs.append(x)
                     else:
-                        parameter_split[1] = float(parameter_split[1])
-                    setattr(obj, parameter_split[0], parameter_split[1])
+                        raise ValueError()
+                except ValueError:
+                    continue
+
+            ka = ",".join(listakwargs)
+            obj = eval("{}({})".format(my_list[0], ka))
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:
