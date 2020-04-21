@@ -1,6 +1,6 @@
 # 0x04. AirBnB clone - Web framework
 
-![](logo.jpg)
+![](Logo.jpg)
 
 ## Requirements
 
