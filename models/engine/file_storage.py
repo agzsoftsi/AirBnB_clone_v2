@@ -77,3 +77,8 @@ class FileStorage:
             remove_key = "{}.{}".format(type(obj).__name__, obj.id)
             self.__objects.pop(remove_key, 0)
             self.save()
+
+    def close(self):
+        """call reload() method for deserializing the JSON objects
+        """
+        self.reload()
