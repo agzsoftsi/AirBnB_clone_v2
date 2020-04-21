@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship, backref
+import models
 
 
 class State(BaseModel, Base):
@@ -20,8 +21,7 @@ class State(BaseModel, Base):
         """ Returns the list of City instances with
         state_id == current State.id """
         list_cities = []
-        state_cities = models.storage.all(City)
-        for st_city in state_cities.values():
-            if st_city.state_id == self.id:
-                list_cities.append(st_city)
+        for city in models.storage.all(City).values():
+            if self.id == city.state_id:
+                list_cities.append(city)
         return list_cities
