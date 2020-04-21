@@ -1,5 +1,7 @@
 # 0x04. AirBnB clone - Web framework
 
+![](logo.jpg)
+
 ## Requirements
 
 ### Python Scripts
